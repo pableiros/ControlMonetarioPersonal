@@ -170,13 +170,56 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <h4 class="modal-title" id="myModalLabel">Nuevo Egreso</h4>
             </div>
+             <form role="form" method="post" action="php/agregarEgreso.php">
             <div class="modal-body">
-              FORMULARIO DE EGRESO AQUÍ.
+              
+              <div class="form-group">
+                <label for="categoriaInput">Nombre Egreso</label>
+                <input type="text" class="form-control" name="nombreEgreso" id="categoriaInput" placeholder="Ingrese el nombre del egreso">
+              </div>
+              <div class="form-group">
+                <label for="cantidadInput">Cantidad</label>
+                <input type="text" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+
+              </div>
+              <div class="form-group">
+                <label for="categoriaInput">Seleccione el tipo de categoria</label>
+                <select id="categoriaEgreso" class="form-control">
+                   <option value="" disabled selected>Seleccione una categoria</option>
+                  <option value="bares">Bares</option>
+                  <option value="comida">Comida</option>
+                  <option value="escuela">Escuela</option>
+                  <option value="novia">Novia</option>
+                  <option value="restaurantes">Restaurantes</option>
+                  <option value="tecnologia">Tecnología</option>
+                  <option value="vicios">Vicios</option>                
+                </select>
+               <!-- <?php
+                  $sql = "select * from tblcategoria where activo = 1 and idUsuario = ".$_SESSION['idUsuario'];
+                  $query = mysql_query($conn, $sql);
+                  echo '<select name="categoria">'
+                  while ($row = mysql_fetch_array($query)) {
+                    echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
+                  }
+                  echo '</select>';
+                ?>-->
+                
+              </div>
+              <div class="form-group">
+                  <label for="categoriaInput">Seleccione un producto</label>
+                  <select id="productoEgreso" class="form-control">
+                    <option value="" disabled selected>Seleccione un producto</option>
+                   
+                  </select>
+                </div>
+              <input type="submit" class="btn btn-default" value="Agregar">
+           
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               <button type="button" class="btn btn-primary">Agregar Egreso</button>
             </div>
+             </form>
           </div>
         </div>
       </div>
@@ -222,6 +265,7 @@
                   ?>-->
                   
                 </div>
+               
              
                 <!-- <input type="submit" class="btn btn-default" value="Agregar"> -->
              
@@ -243,6 +287,7 @@
     </div> <!-- /container -->
 
 
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -250,6 +295,59 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
-  
+    <script type="text/javascript">
+
+      $("#categoriaEgreso").change(function(){
+        $("#productoEgreso").find('option').remove();
+        $("#productoEgreso").append('<option value="" disabled selected>Seleccione un producto</option>');
+        if ($(this).val() == "bares") {        
+            $("#productoEgreso").append('<option value="alitas">Alitas</option>');
+            $("#productoEgreso").append('<option value="boneless">Boneless</option>'); 
+            $("#productoEgreso").append('<option value="cerveza">Cerveza</option>');
+            $("#productoEgreso").append('<option value="hamburguesas">Hamburguesas</option>');            
+            $("#productoEgreso").append('<option value="Licor">Licor</option>');
+            $("#productoEgreso").append('<option value="papas">Papas</option>');
+            $("#productoEgreso").append('<option value="regrescos">Refrescos</option>');
+        }else  if ($(this).val() == "comida"){   
+            $("#productoEgreso").append('<option value="cokiebrake">Cokie-Brake</option>');
+            $("#productoEgreso").append('<option value="baguette">Baguette</option>'); 
+            $("#productoEgreso").append('<option value="pizza">Pizza</option>');
+            $("#productoEgreso").append('<option value="hamburguesas">Hamburguesas</option>');            
+            $("#productoEgreso").append('<option value="hotdog">Hot Dogs</option>');
+            $("#productoEgreso").append('<option value="tacos">Tacos</option>');
+            $("#productoEgreso").append('<option value="nachos">Nachos</option>');
+        }else  if ($(this).val() == "escuela"){   
+            $("#productoEgreso").append('<option value="copias">Copias</option>');
+            $("#productoEgreso").append('<option value="utiles">Utiles</option>'); 
+            $("#productoEgreso").append('<option value="libros">Libros</option>');
+            $("#productoEgreso").append('<option value="libretas">Libretas</option>');            
+            $("#productoEgreso").append('<option value="rifa">Boletos de la Rifa</option>');
+            $("#productoEgreso").append('<option value="semestre">Semestre</option>');
+            $("#productoEgreso").append('<option value="camiones">Camiones</option>');
+        }else  if ($(this).val() == "novia"){   
+            $("#productoEgreso").append('<option value="restaurantes">Restaurantes</option>');
+            $("#productoEgreso").append('<option value="regalos">Regalos</option>'); 
+            $("#productoEgreso").append('<option value="cine">Cine</option>');
+            $("#productoEgreso").append('<option value="nieves">Nieves</option>');            
+            $("#productoEgreso").append('<option value="raspados">Raspados</option>');
+        }else  if ($(this).val() == "restaurantes"){   
+            $("#productoEgreso").append('<option value="subway">Subway</option>');
+            $("#productoEgreso").append('<option value="leñador">Leñador</option>'); 
+            $("#productoEgreso").append('<option value="wendys">Wendys</option>');
+            $("#productoEgreso").append('<option value="innout">In n Out</option>');            
+            $("#productoEgreso").append('<option value="rocket">Johny Rocket</option>');
+        }else  if ($(this).val() == "tecnologia"){   
+            $("#productoEgreso").append('<option value="videojuegos">Videojuegos</option>');
+            $("#productoEgreso").append('<option value="computadora">Computadora</option>'); 
+            $("#productoEgreso").append('<option value="accesorios">Accesorios</option>');
+        }else  if ($(this).val() == "vicios"){   
+            $("#productoEgreso").append('<option value="refrescos">Refrescos</option>');
+            $("#productoEgreso").append('<option value="cerveza">Cerveza</option>'); 
+            $("#productoEgreso").append('<option value="licor">Licor</option>');
+            $("#productoEgreso").append('<option value="cafe">Cafe</option>');            
+            $("#productoEgreso").append('<option value="cigarros">Cigarros</option>');
+        };
+      });
+    </script>
 
 </body></html>
