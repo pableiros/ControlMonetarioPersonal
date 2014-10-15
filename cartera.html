@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://getbootstrap.com/examples/jumbotron/ -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+      .right{
+        text-align: right;
+      }
+      .left{
+        text-align: left;
+      }
+      .big-text{
+        font-size: 30px;
+      }
+      .small-text{
+        font-size: 13px;
+      }
+      .center{
+        text-align: center;
+      }
+      .myButton{
+
+      }
+    </style>
+
+    <title>Control Monetario Personal | Cartera</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="http://getbootstrap.com/examples/jumbotron/jumbotron.css" rel="stylesheet"> -->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+    <style type="text/css"></style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Control Monetario Personal</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form">
+            <a href="#" class="btn btn-success myButton">Estadísticas <span class="glyphicon glyphicon-flash"></span></a>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="center ">Mi cartera</h1>
+        <h2 class="center">$1290.00</h2>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4 center">
+            <img src="images/wallet.png" width="200"><br><br>
+            <div class="row">
+              <div class="btn-group btn-group-justified">
+                <a class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalEgreso"><span class="glyphicon glyphicon-minus"></span></a>
+                <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalIngreso"><span class="glyphicon glyphicon-plus"></span></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+<!-- CONTENEDOR BODY -->
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <table class="table table-hover big-text">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="center success"><span class="glyphicon glyphicon-plus"></span></td>
+                <td class="right">$45.00</td>
+                <td class="right"><strong>Abono</strong></td>
+                <td><small>Ya me pagó!</small></td>
+                <td class="small-text left">14/Ene/2014</td>
+              </tr>
+              <tr>
+                <td class="center danger"><span class="glyphicon glyphicon-minus"></span></td>
+                <td class="right">$10.00</td>
+                <td class="right"><strong>Vicios</strong></td>
+                <td><small>Coca-Cola</small></td>
+                <td class="small-text left">23/Feb/2014</td>
+              </tr>
+                <td class="center danger"><span class="glyphicon glyphicon-minus"></span></td>
+                <td class="right">$100.00</td>
+                <td class="right"><strong>Comida</strong></td>
+                <td><small>Amarillo 5</small></td>
+                <td class="small-text left">23/Feb/2014</td>
+              </tr>
+              <tr>
+                <td class="center success"><span class="glyphicon glyphicon-plus"></span></td>
+                <td class="right">$1200.00</td>
+                <td class="right"><strong>Quincena</strong></td>
+                <td><small>Finally!</small></td>
+                <td class="small-text left">15/Mar/2014</td>
+              </tr>
+              <tr>
+                <td class="center danger"><span class="glyphicon glyphicon-minus"></span></td>
+                <td class="right">$10.00</td>
+                <td class="right"><strong>Vicios</strong></td>
+                <td><small>Coca-Cola</small></td>
+                <td class="small-text left">22/Feb/2014</td>
+              </tr>
+                <td class="center danger"><span class="glyphicon glyphicon-minus"></span></td>
+                <td class="right">$10.00</td>
+                <td class="right"><strong>Vicios</strong></td>
+                <td><small>Coca-Cola</small></td>
+                <td class="small-text left">24/Feb/2014</td>
+              </tr>
+              </tr>
+                <td class="center danger"><span class="glyphicon glyphicon-minus"></span></td>
+                <td class="right">$35.00</td>
+                <td class="right"><strong>Novia</strong></td>
+                <td><small>Rosa</small></td>
+                <td class="small-text left">9/Mar/2014</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+<!-- CONTENEDOR BODY - FIN -->
+
+<!-- MODAL EGRESO -->
+      <div class="modal fade" id="modalEgreso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Nuevo Egreso</h4>
+            </div>
+            <div class="modal-body">
+              FORMULARIO DE EGRESO AQUÍ.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Agregar Egreso</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- MODAL EGRESO - FIN -->
+
+<!-- MODAL INGRESO -->
+      <div class="modal fade" id="modalIngreso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Nuevo Ingreso</h4>
+            </div>
+            <div class="modal-body">
+              FORMULARIO DE INGRESO AQUÍ.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary">Agregar Ingreso</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- MODAL INGRESO - FIN -->
+      <hr>
+
+      <footer>
+        <p>© Company 2014</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+  
+
+</body></html>
