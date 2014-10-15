@@ -318,7 +318,7 @@
     <div class="container theme-showcase" role="main">
 
         <!-- Main jumbotron for a primary marketing message or call to action -->
-        <div class="jumbotron" style="background-color:#99ccff">
+        <div class="jumbotron">
             <div class="row">
                 <div class="col-lg-2">
                     <img alt="" src="images/monedas.png" width="130" height="180">
