@@ -75,23 +75,31 @@
 
     <div class="container theme-showcase" role="main">
 
+
+
+
+
       <div class="page-header">
-        <h1>Agregar Categoria</h1>
+        <h1>Agregar Ingreso</h1>
         <h2>Nombre Cartera: <?php echo $_GET['nombreCartera'] ?></h2>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <form role="form" method="post" action="php/agregarCategoria.php">
+          <form role="form" method="post" action="php/agregarIngreso.php">
               <div class="form-group">
-                <label for="producto">Nombre Categoria</label>
-                <input type="text" class="form-control" name="nombreProducto" id="producto" placeholder="Ingrese el nombre del producto">
+                <label for="categoriaInput">Nombre Ingreso</label>
+                <input type="text" class="form-control" name="nombreIngreso" id="categoriaInput" placeholder="Ingrese el nombre del ingreso">
               </div>
               <div class="form-group">
-                <label for="categoriaInput">Seleccione la categoria</label>
+                <label for="cantidadInput">Cantidad</label>
+                <input type="text" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+              </div>
+              <div class="form-group">
+                <label for="categoriaInput">Seleccione el tipo de categoria</label>
                 <?php
-                  $sql = "select * from tbltipo";
+                  $sql = "select * from tblcategoria where activo = 1 and idUsuario = ".$_SESSION['idUsuario'];
                   $query = mysql_query($conn, $sql);
-                  echo '<select name="tipo">';
+                  echo '<select name="categoria">'
                   while ($row = mysql_fetch_array($query)) {
                     echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
                   }
