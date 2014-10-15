@@ -75,10 +75,6 @@
 
     <div class="container theme-showcase" role="main">
 
-
-
-
-
       <div class="page-header">
         <h1>Agregar Categoria</h1>
         <h2>Nombre Cartera: <?php echo $_GET['nombreCartera'] ?></h2>
@@ -95,7 +91,7 @@
                 <?php
                   $sql = "select * from tbltipo";
                   $query = mysql_query($conn, $sql);
-                  echo '<select name="tipo">'
+                  echo '<select name="tipo">';
                   while ($row = mysql_fetch_array($query)) {
                     echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
                   }
