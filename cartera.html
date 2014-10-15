@@ -190,13 +190,47 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <h4 class="modal-title" id="myModalLabel">Nuevo Ingreso</h4>
             </div>
-            <div class="modal-body">
-              FORMULARIO DE INGRESO AQUÍ.
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Agregar Ingreso</button>
-            </div>
+            <form role="form" method="post" action="php/agregarIngreso.php">
+              <div class="modal-body">
+                
+                <div class="form-group">
+                  <label for="categoriaInput">Nombre Ingreso</label>
+                  <input type="text" class="form-control" name="nombreIngreso" id="categoriaInput" placeholder="Ingrese el nombre del ingreso">
+                </div>
+                <div class="form-group">
+                  <label for="cantidadInput">Cantidad</label>
+                  <input type="text" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+                </div>
+                <div class="form-group">
+                  <label for="categoriaInput">Seleccione el tipo de categoria</label>
+                  <select class="form-control">
+                    <option value="" disabled selected>Seleccione una categoria</option>
+                    <option>Abono</option>
+                    <option>Beca</option>
+                    <option>Cobro de prestamo</option>
+                    <option>Dinero Encontrado</option>
+                    <option>Quincena</option>
+                  </select>
+                  <!--<?php
+                    $sql = "select * from tblcategoria where activo = 1 and idUsuario = ".$_SESSION['idUsuario'];
+                    $query = mysql_query($conn, $sql);
+                    echo '<select name="categoria">'
+                    while ($row = mysql_fetch_array($query)) {
+                      echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
+                    }
+                    echo '</select>';
+                  ?>-->
+                  
+                </div>
+             
+                <!-- <input type="submit" class="btn btn-default" value="Agregar"> -->
+             
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Agregar Ingreso</button>
+              </div>
+             </form>
           </div>
         </div>
       </div>
