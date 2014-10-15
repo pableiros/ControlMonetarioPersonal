@@ -360,7 +360,7 @@
                         <table>
                             <tr>
                                 <td rowspan="2" width="66%"><a href="cartera1.html"><img src="images/cartera.png" width="300" height="220"  /></a></td>
-                                <td><button type="button" class="btn btn-danger botonesRedondos" > <span class="glyphicon glyphicon-remove"></span></a></td>
+                                <td><button type="button" class="btn btn-danger botonesRedondos"> <span class="glyphicon glyphicon-remove"></span></a></td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: bottom;"><button type="Button" class=" btnEditarCartera btn btn-default botonesRedondos"  ><span class="glyphicon glyphicon-pencil"></span></button></td>
