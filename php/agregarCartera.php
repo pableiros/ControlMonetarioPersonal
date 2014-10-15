@@ -6,7 +6,7 @@
 		$sql = "insert into tblcartera(nombre, idUsuario) values('".$_POST['nombreCartera']."', ".$_SESSION['idUsuario'].");";
 		$query = mysql_query($query, $conn);
 		if ($query) {
-                                header('Location ../Principal.php');
+				//Regresar al index
 			}	
 	}else{
 		

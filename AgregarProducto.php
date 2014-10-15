@@ -96,7 +96,7 @@
                 <?php
                   $sql = "select * from tblcategoria where activo = 1 and idUsuario = ".$_SESSION['idUsuario'];
                   $query = mysql_query($conn, $sql);
-                  echo '<select name="categoria">';
+                  echo '<select name="categoria">'
                   while ($row = mysql_fetch_array($query)) {
                     echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
                   }
