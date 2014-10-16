@@ -1,15 +1,27 @@
 <?php 
 	session_start();
 
-	if (isset($_SESSION['user']) && isset($_POST['nombreCartera'])) {
-		require_once('conexion.php');
-		$sql = "insert into tblcartera(nombre, idUsuario) values('".$_POST['nombreCartera']."', ".$_SESSION['idUsuario'].");";
-		$query = mysql_query($query, $conn);
-		if ($query) {
-				//Regresar al index
-			}	
-	}else{
+	if (isset($_SESSION['idusuario']) && isset($_POST['nombrecartera'])) {
+
+		require_once('conection.php');
 		
-		header('Location ../login.php');
+		$sql = "insert into tblcartera(nombre, idUsuario) values('".$_POST['nombrecartera']."', ".$_SESSION['idusuario'].");";
+		$query = mysql_query($sql);
+		echo "
+				<html>
+					<head>
+						<meta http-equiv='REFRESH' content='0;url=../Principal.php'>
+					</head>
+				</html>
+			";
+	}else{
+	
+		echo "
+				<html>
+					<head>
+						<meta http-equiv='REFRESH' content='0;url=../login.php'>
+					</head>
+				</html>
+			";
 	}
  ?>

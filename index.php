@@ -26,8 +26,8 @@
     { 
         session_start(); 
     }
-    include_once "conection.php";
-    include_once "paths_permission.php";
+    include_once "php/conection.php";
+    include_once "php/paths_permission.php";
   
     function verificar_login($user,$pass,&$result) { 
       $sql = "SELECT * FROM tblusuario WHERE user = '$user' AND pass = '$pass' AND activo = 1";
@@ -46,6 +46,7 @@
           $row_client = mysql_fetch_object($rec_client);
           $result = $row_client; 
       }   
+      echo $sql;
       return $flag;
     } 
   

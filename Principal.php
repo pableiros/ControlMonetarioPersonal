@@ -86,12 +86,12 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">Nueva Cartera</h4>
                 </div>
-                <form class="modal-form form-horizontal"  role="form" action="" method="POST" id="categoriaseditform" onReset="javascript:location.reload()">
+                <form class="modal-form form-horizontal"  role="form" action="php/agregarCartera.php" method="POST" id="categoriaseditform" onReset="javascript:location.reload()">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label class="control-label">Nombre de la cartera:</label>
-                                <input type="text" id="nombrecarteraedit" name="nombrecarteraedit" class="form-control" required="required" >
+                                <input type="text" id="nombrecarteraedit" name="nombrecartera" class="form-control" required="required" >
                             </div>               
                         </div>
                     </div>
@@ -239,7 +239,23 @@
         </form>
         </div>
     </div>   
-
+    <div id="popover-AgregarCartera" class="hide">
+        <div class="popover-content" style="width:400px">
+         <form class="modal-form form-horizontal"  role="form" action="php/agregarCartera.php" method="POST" id="categoriaseditform" >
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <label class="control-label">Nombre nuevo de la cartera a agregar:</label>
+                    <input type="text" id="nombrecarteraedit" name="nombrecartera" class="form-control" required>
+                </div>               
+            </div>
+            <div class="form-group"><!-- Grupo de botones -->
+                <div class="col-sm-12">
+                    <input type="submit" id="btnAgregarCartera" class="btn btn-lg btn-primary btn-block" value="guardar">
+                </div>
+            </div><!-- Grupo de botones fin -->    
+        </form>
+        </div>
+    </div> 
 
     <div class="modal fade" id="myModalProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -331,12 +347,66 @@
             </div>
         </div>
         <div class="page-header">
-            <h1 class="text-center">Carteras</h1>
+            <table style="text-align:center;">
+                <tr>
+                    <h1 class="text-center">Carteras</h1>
+                </tr>
+            </table>
+           
+            
         </div>
 
         <div>
+            <?php 
+                    require_once('php/conection.php');
+                    $sql = "SELECT c.nombre as Nombre FROM tblcartera c 
+                            INNER JOIN tblusuario u 
+                            ON c.idUsuario = u.id
+                            where c.activo = 1;";
+                    $query = mysql_query($sql);
+                    $nuevoRenglon = false;
+                    $contador = 0;
+                    echo ' <div class="row">';
+                    while($row = mysql_fetch_array($query)) 
+                    { 
+                        echo '<div class="col-lg-4 text-center">
+                    <div class="form-group">
+                        <table>
+                            <tr>
+                                <td rowspan="2" width="66%"><a href="cartera.html"><img src="images/cartera.png" width="300" height="220"  /></a></td>
+                                <td><button type="button" class="btn btn-danger botonesRedondos"> <span class="glyphicon glyphicon-remove"></span></button></td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: bottom;"><button type="Button" class="btnEditarCartera btn btn-default botonesRedondos"  ><span class="glyphicon glyphicon-pencil"></span></button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group text-center">
+                        <h3>'.$row['Nombre'].'</h3>
+                    </div>
+                    <div class="form-group text-success">
+                        <h4>$8035.00</h4>
+                    </div>
+                </div>';
+                    $contador++;
+                    if ($contador == 3) {
+                        echo '</div>';
+                        echo ' <div class="row">';
+                        $contador = 0;
+                    }
+                }
+                 
+                echo "<div class=\"col-lg-4 text-center\">
+                    <div class=\"form-group\">
+                        <a href=\"#\" data-toggle='modal' data-target='#ModalNuevaCartera'><img src=\"images/cartera.png\" width=\"300\" height=\"220\"  /></a>
+                    </div>
+                </div>";
+                echo '</div>';   
+                 ?>
+
             <div class="row">
-                <div class="col-lg-4 text-center">
+                
+               <!--  <div class="col-lg-4 text-center">
                     <div class="form-group">
                         <table>
                             <tr>
@@ -373,12 +443,8 @@
                     <div class="form-group text-success">
                         <h4>$1290.00</h4>
                     </div>
-                </div>
-                <div class="col-lg-4 text-center">
-                    <div class="form-group">
-                        <a href="#" data-toggle='modal' data-target='#ModalNuevaCartera'><img src="images/cartera.png" width="300" height="220"  /></a>
-                    </div>
-                </div>
+                </div> -->
+                
             </div>
         </div>
 
@@ -397,7 +463,7 @@
                       return $("#popover-contentCartera").html();
                     }
                 });
-
+        
             $('body').on('click', function (e) {
                 $('.btnEditarCartera').each(function () {
                     //the 'is' for buttons that trigger popups
@@ -406,6 +472,7 @@
                         $(this).popover('hide');
                     }
                 });
+              
             });
     </script>
   
