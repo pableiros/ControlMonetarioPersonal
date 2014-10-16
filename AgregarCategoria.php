@@ -95,7 +95,7 @@
                 <?php
                   $sql = "select * from tbltipo";
                   $query = mysql_query($conn, $sql);
-                  echo '<select name="tipo">'
+                  echo '<select name="tipo">';
                   while ($row = mysql_fetch_array($query)) {
                     echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
                   }
