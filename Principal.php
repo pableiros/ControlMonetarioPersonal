@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.css" />										<!-- Bootstrap Main Style css -->
     <link rel="stylesheet" href="css/dataTables.tableTools.min.css" />										<!-- Bootstrap Theme Table tools Style css -->
     <link rel="stylesheet" href="css/dataTables.bootstrap.css" />											<!-- Bootstrap Theme for DataTables css -->
-    <link rel="stylesheet" href="css/alertify.min.css" />                     								<!-- Alertify style css -->
+    <link rel="stylesheet" href="css/alertify.css" />                     								<!-- Alertify style css -->
     <link rel="stylesheet" href="css/alertify.bootstrap.css" />   
     <title>Control Monetario Personal</title>
 
@@ -28,7 +28,7 @@
     <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>		<!-- jquery dataTables js -->
     <script type="text/javascript" language="javascript" src="js/dataTables.tableTools.min.js"/></script>	<!-- jquery tableTools js -->
     <script type="text/javascript" language="javascript" src="js/dataTables.bootstrap.js"/></script>		<!-- jquery dataTables bootstrap theme js -->
-    <script type="text/javascript" language="javascript" src="js/alertify.min.js"></script>					<!-- alertify js -->
+   
     <script type="text/javascript" language="javascript" src="js/ownscript.js"></script>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -373,7 +373,7 @@
                         <table>
                             <tr>
                                 <td rowspan="2" width="66%"><a href="cartera.php?id='.$row['Id'].'"><img src="images/cartera.png" width="300" height="220"  /></a></td>
-                                <td><button type="button" class="btn btn-danger botonesRedondos"> <span class="glyphicon glyphicon-remove"></span></button></td>
+                                <td><button type="button" class="btn btn-danger botonesRedondos eliminarCartera"> <span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: bottom;"><button type="Button" class="btnEditarCartera btn btn-default botonesRedondos"  ><span class="glyphicon glyphicon-pencil"></span></button></td>
@@ -454,6 +454,7 @@
     <script src="js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+     <script type="text/javascript" language="javascript" src="js/alertify.js"></script>                    <!-- alertify js -->
         <script type="text/javascript">    
             $('.btnEditarCartera').popover({ 
                     placement : 'top',
@@ -472,6 +473,11 @@
                     }
                 });
               
+            });
+            $(".eliminarCartera").click(function(){
+               
+                alertify.confirm("¿Está seguro(a) de eliminar la cartera?", function (e, str) {
+                });
             });
     </script>
   
