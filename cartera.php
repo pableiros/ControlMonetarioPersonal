@@ -359,7 +359,7 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
           <table class="table table-hover big-text">
             <thead>
               <tr>

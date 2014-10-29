@@ -1,16 +1,16 @@
 <?php 
 	session_start();
 
-	if (isset($_SESSION['user']) && isset($_POST['tipo']) && isset($_POST['nombreCategoria'])) {
-		require_once('conexion.php');
-		$sql = "insert into tblcategoria(nombre, idUsuario, idTipo)
-		 values('".$_POST['nombreCartera']."', ".$_SESSION['idUsuario'].", ".$_SESSION['idTipo'].");";
-		$query = mysql_query($query, $conn);
+	if (isset($_SESSION['idusuario']) && isset($_POST['nombreCategoria'])) {
+		require_once('conection.php');
+		$sql = "insert into tblcategoria(id, activo, nombre, idTipo, idUsuario)
+		 values(NULL, 1, '".$_POST['nombreCategoria']."', ".$_GET['tipo'].", ".$_SESSION['idusuario'].");";
+		$query = mysql_query($sql);
+		echo $sql;
 		if ($query) {
-				//Regresar al index
+    			header('location: http://localhost/ControlMonetarioPersonal/Principal.php'); 
 			}	
-	}else{
-		
-		header('Location ../login.php');
+	}else{		
+    	header('location: logout.php'); 
 	}
  ?>

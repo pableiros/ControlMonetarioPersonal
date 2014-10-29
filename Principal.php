@@ -102,6 +102,7 @@
             </div>
         </div>
     </div>
+    
     <div class="modal fade" id="myModalCategorias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -119,8 +120,13 @@
 								</div>
 								<div id="collapseTwo" class="panel-collapse collapse">
 									<div class="panel-body">
-										<form class="form-horizontal col-lg-10 col-lg-offset-1" id="categoriasaddform" role="form" action="" method="POST" onReset="javascript:location.reload()">
-											<div class="form-group">
+										<form class="form-horizontal col-lg-10 col-lg-offset-1" id="categoriasaddform" role="form" action="php/agregarCategoria.php?tipo=1" method="POST" onReset="javascript:location.reload()">
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    <a class="btn btn-success btn-lg btn-block" onclick="changingPass()" id="buttonChanger"><span class="glyphicon glyphicon-plus"></span>  Ingreso</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
 												<div class="col-lg-12">
 													<label class="control-label">Nombre(s):</label>
 													<input type="text" id="nombreCategoria" name="nombreCategoria" class="form-control" onKeyPress="return filtrado(event)" required="required" >
@@ -128,7 +134,7 @@
 											</div>
 											<div class="form-group"><!-- Grupo de botones -->
 												<div style="margin-bottom:5px;" class="col-sm-6">
-													<button type="submit" id="btntovalidate" class="btn btn-lg btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+													<button type="submit" id="btnaddcategoria" class="btn btn-lg btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 												</div>
 												<div class="col-sm-6">
 													<button type="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="btn btn-lg btn-danger btn-block"><span class="glyphicon glyphicon-floppy-remove"></span> Cancel</button>
@@ -143,68 +149,95 @@
 									<h4 class="panel-title text-center">Categorías</h4>
 								</div>
 								<div class="panel-body">
-									<table width="99.99%" id="datatablecategorias" class="table table-hover table-condensed display">
-										<thead>
-											<tr>
-												<th class="hidden"><b></b></th>
-												<th class='text-center'><b>Editar</b></th>
-												<th><b>Nombre</b></th>
-												<th><b>Productos</b></th>
-												<th class='text-center'><b>Eliminar</b></th>
-											</tr>
-										</thead>
-										<tbody id="tbodyTablaCategorias">
-											<tr>
-												<td class="hidden">1</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>
-												<td>Servicios</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>
-											</tr>
-											<tr>
-												<td class="hidden">2</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>
-												<td>Vicios</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>
-											</tr>
-											<tr>
-												<td class="hidden">3</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>
-												<td>Electronica</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>
-											</tr>
-											<tr>
-												<td class="hidden">4</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>
-												<td>Entretenimiento</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>
-											</tr>
-											<tr>
-												<td class="hidden">5</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>
-												<td>Ropa</td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
-												<td width='60' class='text-center'><a href='#' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>
-											</tr>
-										</tbody>
-									</table>
+
+
+
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                      <li class="active"><a href="#home" role="tab" data-toggle="tab">Ingresos</a></li>
+                                      <li><a href="#profile" role="tab" data-toggle="tab">Egresos</a></li>
+                                    </ul>
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                      <div class="tab-pane active" id="home">
+                                        <table width="99.99%" id="datatablecategorias" class="table table-hover table-condensed display">
+                                            <thead>
+                                                <tr>
+                                                    <th class="hidden"><b></b></th>
+                                                    <th class='text-center'><b>Editar</b></th>
+                                                    <th><b>Nombre</b></th>
+                                                    <th><b>Productos</b></th>
+                                                    <th class='text-center'><b>Eliminar</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyTablaCategorias">
+                                                <?php
+                                                    require_once('php/conection.php');
+                                                    $query = "SELECT * FROM tblcategoria WHERE idTipo=1";
+                                                    $result = mysql_query($query);
+                                                    while ($row = mysql_fetch_array($result)) {
+                                                        echo "<tr>";
+                                                        echo "<td width='60' class='text-center'><a href='#' onclick='changeCategoriaId(".$row['id'].")' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+                                                        echo "<td>".$row['nombre']."</td>";
+                                                        echo "
+                                                    <td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
+                                                    <td width='60' class='text-center'><a href='php/eliminaCategoria.php?id=".$row['id']."' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>";
+                                                        echo "</tr>";
+                                                    }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                      </div>
+
+
+
+                                      <div class="tab-pane" id="profile">
+                                        <table width="99.99%" id="datatablecategorias" class="table table-hover table-condensed display">
+                                            <thead>
+                                                <tr>
+                                                    <th class="hidden"><b></b></th>
+                                                    <th class='text-center'><b>Editar</b></th>
+                                                    <th><b>Nombre</b></th>
+                                                    <th><b>Productos</b></th>
+                                                    <th class='text-center'><b>Eliminar</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyTablaCategorias">
+                                                <?php
+                                                    $query = "SELECT * FROM tblcategoria WHERE idTipo=2";
+                                                    $result = mysql_query($query);
+                                                    while ($row = mysql_fetch_array($result)) {
+                                                        echo "<tr>";
+                                                        echo "<td width='60' class='text-center'><a href='#' onclick='changeCategoriaId(".$row['id'].")' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+                                                        echo "<td>".$row['nombre']."</td>";
+                                                        echo "
+                                                    <td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
+                                                    <td width='60' class='text-center'><a href='php/eliminaCategoria.php?id=".$row['id']."' class='btn btn-danger myButtons BotonEliminarCategoria'><span class='glyphicon glyphicon-remove'></span></a></td>";
+                                                        echo "</tr>";
+                                                    }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                      </div>
+
+                                      </div>
+                                    </div>
 								</div>
 							</div>
 							<script type="text/javascript">
-                                                            $('#datatablecategorias')
-                                                            .removeClass( 'display' )
-                                                            .addClass('table table-striped table-bordered');
-                                                        </script>
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                </div>
-                        </div>
-    </div>
+								$('#datatablecategorias')
+								.removeClass( 'display' )
+								.addClass('table table-striped table-bordered');
+							</script>
+						</div>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+    
+    
     <div id="popover-content" class="hide">
         <form class="modal-form form-horizontal" role="form" action="" method="POST" id="categoriaseditform">
             <div class="form-group">
@@ -383,7 +416,7 @@
                         <h3>'.$row['Nombre'].'</h3>
                     </div>
                     <div class="form-group text-success">
-                        <h4>'.$row['Total'].'</h4>
+                        <h4>$'.$row['Total'].'</h4>
                     </div>
                 </div>';
                     $contador++;
@@ -462,6 +495,14 @@
                       return $("#popover-contentCartera").html();
                     }
                 });
+              
+            $('.BotonEditarCategoria').popover({ 
+                    placement : 'top',
+                    html : true,
+                    content: function() {
+                      return $("#popover-content").html();
+                    }
+                });
         
             $('body').on('click', function (e) {
                 $('.btnEditarCartera').each(function () {
@@ -471,10 +512,40 @@
                         $(this).popover('hide');
                     }
                 });
-              
+                $('.BotonEditarCategoria').each(function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+
             });
-            $(".eliminarCartera").click(function(){
-               
+            
+            
+            var passDisabled = false;
+            function changingPass(){
+                var boton = document.getElementById("buttonChanger");
+                var formCategoria = document.getElementById("categoriasaddform");
+                if(passDisabled){
+                    boton.innerHTML = "<span class='glyphicon glyphicon-plus'></span>  Ingreso";
+                    formCategoria.action = "php/agregarCategoria.php?tipo=1";
+                    $('#buttonChanger').removeClass("btn-danger").addClass("btn-success");
+                }
+                else{
+                    boton.innerHTML = "<span class='glyphicon glyphicon-minus'></span>  Egreso";
+                    formCategoria.action = "php/agregarCategoria.php?tipo=2";
+                    $('#buttonChanger').removeClass("btn-success").addClass("btn-danger");
+                }
+                    passDisabled = !passDisabled;
+            }
+            function changeCategoriaId(id){
+                setTimeout(function(){
+                  document.getElementById('categoriaseditform').action = "php/editarCategoria.php?id=";}, 2000);
+                //document.getElementById("categoriaseditform").action = "php/editarCategoria.php?id="+id;
+                
+            }
+            $(".eliminarCartera").click(function(){              
                 alertify.confirm("¿Está seguro(a) de eliminar la cartera?", function (e, str) {
                 });
             });
