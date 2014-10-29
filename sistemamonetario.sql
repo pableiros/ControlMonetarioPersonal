@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2014 a las 03:16:18
+-- Tiempo de generación: 29-10-2014 a las 03:48:37
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `tblmovimiento` (
 
 INSERT INTO `tblmovimiento` (`id`, `comentario`, `cantidad`, `fecha`, `unix`, `activo`, `idCategoria`, `idProducto`, `idCartera`) VALUES
 (1, 'Por fin me pagaron!', 2000.00, '2014-10-28', 1, 1, 4, 3, 4),
-(6, 'Cocaaa!', 1500.00, '2014-10-28', 2, 1, 3, 2, 4),
+(6, 'Cocaa!', 1500.00, '2014-10-28', 2, 1, 3, 2, 4),
 (7, 'Novia consentida', 500.00, '2014-10-28', 1414547628, 1, 3, 2, 4),
 (8, 'Bono', 500.00, '2014-10-28', 1414548333, 1, 4, 3, 4);
 
@@ -161,6 +161,8 @@ CREATE TABLE IF NOT EXISTS `vistadetallecartera` (
 ,`totalIngresos` double(19,2)
 ,`totalEgresos` double(19,2)
 ,`total` double(19,2)
+,`idUsuario` int(11)
+,`activo` int(11)
 );
 -- --------------------------------------------------------
 
@@ -184,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `vistamovimientos` (
 --
 DROP TABLE IF EXISTS `vistadetallecartera`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistadetallecartera` AS select `tblcartera`.`id` AS `id`,`tblcartera`.`nombre` AS `nombre`,(select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` = 'N/A')) AS `totalIngresos`,(select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` <> 'N/A')) AS `totalEgresos`,((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` = 'N/A')) - (select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` <> 'N/A'))) AS `total` from (`tblcartera` join `tblmovimiento` on((`tblmovimiento`.`idCartera` = `tblcartera`.`id`))) group by `tblmovimiento`.`idCartera`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistadetallecartera` AS select `tblcartera`.`id` AS `id`,`tblcartera`.`nombre` AS `nombre`,(select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` = 'N/A')) AS `totalIngresos`,(select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` <> 'N/A')) AS `totalEgresos`,((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` = 'N/A')) - (select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` <> 'N/A'))) AS `total`,`tblcartera`.`idUsuario` AS `idUsuario`,`tblcartera`.`activo` AS `activo` from (`tblcartera` join `tblmovimiento` on((`tblmovimiento`.`idCartera` = `tblcartera`.`id`))) group by `tblmovimiento`.`idCartera`;
 
 -- --------------------------------------------------------
 
@@ -196,7 +198,7 @@ DROP TABLE IF EXISTS `vistamovimientos`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistamovimientos` AS select `tblmovimiento`.`id` AS `id`,`tblmovimiento`.`comentario` AS `comentario`,`tblmovimiento`.`cantidad` AS `cantidad`,`tblmovimiento`.`fecha` AS `fecha`,`tblmovimiento`.`activo` AS `activo`,`tblmovimiento`.`idCartera` AS `idCartera`,`tblcategoria`.`nombre` AS `nomCategoria`,`tblproducto`.`nombre` AS `nomProducto` from ((`tblmovimiento` join `tblproducto` on((`tblmovimiento`.`idProducto` = `tblproducto`.`id`))) join `tblcategoria` on((`tblmovimiento`.`idCategoria` = `tblcategoria`.`id`))) where (`tblmovimiento`.`activo` = 1) order by `tblmovimiento`.`unix` desc;
 
 --
--- �?ndices para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
