@@ -5,7 +5,7 @@
     function cargarSelectCategorias($nomSelect, $tipo) {
     $sql = "select * from tblcategoria where activo = 1 and idUsuario = " . $_SESSION['idusuario'] . " and idTipo = " . $tipo;
     $query = mysql_query($sql);
-    echo '<select id="categoriaInput" name="'.$nomSelect.'" class="form-control">';
+    echo '<select id="categoriaInput" name="'.$nomSelect.'" class="form-control" required>';
     echo '<option value="" disabled selected>Seleccione una categoria</option>';
     while ($row = mysql_fetch_array($query)) {
         echo '<option value="' . $row['id'] . '">' . $row['nombre'] . '</option>';
@@ -23,7 +23,7 @@
                 echo '<tr><td class="center success">';
                 echo '<span class="glyphicon glyphicon-plus"></span>';
                 echo '</td>'
-                . '<td class="right">' . $row['cantidad'] . '</td>'
+                . '<td class="right">$' . $row['cantidad'] . '</td>'
                 . '<td class="right"><strong>' . $row['nomCategoria'] . '</strong></td>'
                 . '<td><small>' . $row['comentario'] . '</small></td>'
                 . '<td class="small-text left">' . $row['fecha'] . '<td>';
@@ -32,7 +32,7 @@
                 echo '<tr><td class="center danger">';
                 echo '<span class="glyphicon glyphicon-minus"></span>';
                 echo '</td>'
-                . '<td class="right">' . $row['cantidad'] . '</td>'
+                . '<td class="right">$' . $row['cantidad'] . '</td>'
                 . '<td class="right"><strong>' . $row['nomCategoria'] . '</strong></td>'
                 . '<td><small>' . $row['nomProducto'] . '</small></td>'
                 . '<td class="small-text left">' . $row['fecha'] . '<td>';
@@ -439,11 +439,11 @@
               
               <div class="form-group">
                 <label for="categoriaInput">Nombre Egreso</label>
-                <input type="text" class="form-control" name="nombreEgreso" id="nombreInput" placeholder="Ingrese el nombre del egreso">
+                <input type="text" class="form-control" name="nombreEgreso" id="nombreInput" required placeholder="Ingrese el nombre del egreso">
               </div>
               <div class="form-group">
                 <label for="cantidadInput">Cantidad</label>
-                <input type="number" class="form-control" step="0.01" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+                <input type="number" class="form-control" step="0.01" name="cantidad" id="cantidadInput" required placeholder="Ingrese la cantidad">
 
               </div>
               <div class="form-group">
@@ -484,11 +484,11 @@
                 
                 <div class="form-group">
                   <label for="categoriaInput">Nombre Ingreso</label>
-                  <input type="text" class="form-control" name="nombreIngreso" id="nombreInput" placeholder="Ingrese el nombre del ingreso">
+                  <input type="text" class="form-control" name="nombreIngreso" required id="nombreInput" placeholder="Ingrese el nombre del ingreso">
                 </div>
                 <div class="form-group">
                   <label for="cantidadInput">Cantidad</label>
-                  <input type="number" step="0.01" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+                  <input type="number" step="0.01" class="form-control" required name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
                 </div>
                 <div class="form-group">
                   <label for="categoriaInput">Seleccione el tipo de categoria</label>

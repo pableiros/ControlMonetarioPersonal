@@ -194,31 +194,31 @@
 								</div>
 							</div>
 							<script type="text/javascript">
-								$('#datatablecategorias')
-								.removeClass( 'display' )
-								.addClass('table table-striped table-bordered');
-							</script>
-						</div>
-					</div>
-					<div class="modal-footer">
-					</div>
-				</div>
-			</div>
-		</div>
-    <div id="popover-content" class="hide">
-			<form class="modal-form form-horizontal" role="form" action="" method="POST" id="categoriaseditform">
-				<div class="form-group">
-					<div class="col-lg-12">
-						<label class="control-label">Nombre Categoría:</label>
-						<input type="text" id="nombrecategoriaedit" name="nombrecategoriaedit" class="form-control" required="required" >
-					</div>               
-				</div>
-                            <div class="form-group"><!-- Grupo de botones -->
-                                <div class="col-sm-12">
-                                    <button type="submit" id="btntovalidate" class="btn btn-lg btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                                                            $('#datatablecategorias')
+                                                            .removeClass( 'display' )
+                                                            .addClass('table table-striped table-bordered');
+                                                        </script>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
                                 </div>
-                            </div><!-- Grupo de botones fin -->    
-                        </form>
+                        </div>
+    </div>
+    <div id="popover-content" class="hide">
+        <form class="modal-form form-horizontal" role="form" action="" method="POST" id="categoriaseditform">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <label class="control-label">Nombre Categoría:</label>
+                    <input type="text" id="nombrecategoriaedit" name="nombrecategoriaedit" class="form-control" required="required" >
+                </div>               
+            </div>
+            <div class="form-group"><!-- Grupo de botones -->
+                <div class="col-sm-12">
+                    <button type="submit" id="btntovalidate" class="btn btn-lg btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                </div>
+            </div><!-- Grupo de botones fin -->    
+        </form>
     </div>
 
     <div id="popover-contentCartera" class="hide">
@@ -358,10 +358,9 @@
         <div>
             <?php 
                     require_once('php/conection.php');
-                    $sql = "SELECT c.id as Id, c.nombre as Nombre FROM tblcartera c 
-                            INNER JOIN tblusuario u 
-                            ON c.idUsuario = u.id
-                            where c.activo = 1;";
+                    $sql = "SELECT c.id as Id, c.nombre as Nombre, c.total as Total FROM vistadetallecartera c 
+                            WHERE c.idUsuario = ".$_SESSION['idusuario']." AND
+                            c.activo = 1;";
                     $query = mysql_query($sql);
                     $nuevoRenglon = false;
                     $contador = 0;
@@ -384,7 +383,7 @@
                         <h3>'.$row['Nombre'].'</h3>
                     </div>
                     <div class="form-group text-success">
-                        <h4>$8035.00</h4>
+                        <h4>'.$row['Total'].'</h4>
                     </div>
                 </div>';
                     $contador++;
