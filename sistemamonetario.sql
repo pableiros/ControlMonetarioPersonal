@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2014 a las 03:48:37
+-- Tiempo de generación: 29-10-2014 a las 04:42:29
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -31,14 +31,15 @@ CREATE TABLE IF NOT EXISTS `tblcartera` (
   `nombre` varchar(255) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   `idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `tblcartera`
 --
 
 INSERT INTO `tblcartera` (`id`, `nombre`, `activo`, `idUsuario`) VALUES
-(4, 'Ahorro', 1, 4);
+(4, 'Ahorro', 1, 4),
+(5, 'Cochinito', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `tblmovimiento` (
   `idCategoria` int(11) DEFAULT NULL,
   `idProducto` int(11) DEFAULT NULL,
   `idCartera` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Volcado de datos para la tabla `tblmovimiento`
@@ -186,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `vistamovimientos` (
 --
 DROP TABLE IF EXISTS `vistadetallecartera`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistadetallecartera` AS select `tblcartera`.`id` AS `id`,`tblcartera`.`nombre` AS `nombre`,(select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` = 'N/A')) AS `totalIngresos`,(select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` <> 'N/A')) AS `totalEgresos`,((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` = 'N/A')) - (select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where (`vistamovimientos`.`nomProducto` <> 'N/A'))) AS `total`,`tblcartera`.`idUsuario` AS `idUsuario`,`tblcartera`.`activo` AS `activo` from (`tblcartera` join `tblmovimiento` on((`tblmovimiento`.`idCartera` = `tblcartera`.`id`))) group by `tblmovimiento`.`idCartera`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistadetallecartera` AS select `tblcartera`.`id` AS `id`,`tblcartera`.`nombre` AS `nombre`,ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` = 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) AS `totalIngresos`,ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` <> 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) AS `totalEgresos`,(ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` = 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) - ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` <> 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0)) AS `total`,`tblcartera`.`idUsuario` AS `idUsuario`,`tblcartera`.`activo` AS `activo` from (`tblcartera` left join `tblmovimiento` on((`tblmovimiento`.`idCartera` = `tblcartera`.`id`))) group by `tblmovimiento`.`idCartera`;
 
 -- --------------------------------------------------------
 
@@ -245,7 +246,7 @@ ALTER TABLE `tblusuario`
 -- AUTO_INCREMENT de la tabla `tblcartera`
 --
 ALTER TABLE `tblcartera`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `tblcategoria`
 --
@@ -255,7 +256,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `tblmovimiento`
 --
 ALTER TABLE `tblmovimiento`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `tblproducto`
 --
