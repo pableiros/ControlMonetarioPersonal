@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-		<center><img src="images/asd" width="auto" height="130" title="Logo" alt="logo"></center>
+            <center><img src="images/logo.png" width="auto" height="130" title="Logo" alt="logo"></center>
 		<form class="form-signin" method="POST" action="">
 			<h2 class="form-signin-heading">Inciar sesi&oacute;n</h2></center>
 			<input type="text" name="user" class="form-control" placeholder="Usuario" value="pborquez" autofocus required="required"><br>

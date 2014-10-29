@@ -1,5 +1,4 @@
-
-
+<?php session_start();  ?>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -341,7 +340,7 @@
                 </div>
                 <div class="col-lg-10">
                     <h1 style="font-family: fantasy">Sistema de Control Monetario</h1>
-                    <h3>Bienvenido jArredondo</h3>
+                    <h3>Bienvenido <?php echo $_SESSION['username'] ?> </h3>
                     <p>Registre diariamente sus ingresos y egresos para tener una mayor eficiencia en su control monetario.</p>
                 </div>
             </div>
@@ -359,7 +358,7 @@
         <div>
             <?php 
                     require_once('php/conection.php');
-                    $sql = "SELECT c.nombre as Nombre FROM tblcartera c 
+                    $sql = "SELECT c.id as Id, c.nombre as Nombre FROM tblcartera c 
                             INNER JOIN tblusuario u 
                             ON c.idUsuario = u.id
                             where c.activo = 1;";
@@ -373,7 +372,7 @@
                     <div class="form-group">
                         <table>
                             <tr>
-                                <td rowspan="2" width="66%"><a href="cartera.html"><img src="images/cartera.png" width="300" height="220"  /></a></td>
+                                <td rowspan="2" width="66%"><a href="cartera.php?id='.$row['Id'].'"><img src="images/cartera.png" width="300" height="220"  /></a></td>
                                 <td><button type="button" class="btn btn-danger botonesRedondos"> <span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
                             <tr>

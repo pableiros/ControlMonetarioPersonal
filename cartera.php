@@ -1,3 +1,49 @@
+<?php 
+    include_once "php/conection.php";
+    include_once "php/paths_permission.php";
+    
+    function cargarSelectCategorias($nomSelect, $tipo) {
+    $sql = "select * from tblcategoria where activo = 1 and idUsuario = " . $_SESSION['idusuario'] . " and idTipo = " . $tipo;
+    $query = mysql_query($sql);
+    echo '<select id="categoriaInput" name="'.$nomSelect.'" class="form-control">';
+    echo '<option value="" disabled selected>Seleccione una categoria</option>';
+    while ($row = mysql_fetch_array($query)) {
+        echo '<option value="' . $row['id'] . '">' . $row['nombre'] . '</option>';
+    }
+    echo '</select>';   
+    }
+    
+    function  cargarTablaMovimiento(){
+        $sql = "select * from vistamovimientos where idCartera = '".$_GET['id']."'";
+        $query = mysql_query($sql);
+        echo '<tbody>';
+        while ($row = mysql_fetch_array($query)) {
+            if ($row['nomProducto'] == "N/A") {
+                // es ingreso
+                echo '<tr><td class="center success">';
+                echo '<span class="glyphicon glyphicon-plus"></span>';
+                echo '</td>'
+                . '<td class="right">' . $row['cantidad'] . '</td>'
+                . '<td class="right"><strong>' . $row['nomCategoria'] . '</strong></td>'
+                . '<td><small>' . $row['comentario'] . '</small></td>'
+                . '<td class="small-text left">' . $row['fecha'] . '<td>';
+            } else {
+                // es egreso
+                echo '<tr><td class="center danger">';
+                echo '<span class="glyphicon glyphicon-minus"></span>';
+                echo '</td>'
+                . '<td class="right">' . $row['cantidad'] . '</td>'
+                . '<td class="right"><strong>' . $row['nomCategoria'] . '</strong></td>'
+                . '<td><small>' . $row['nomProducto'] . '</small></td>'
+                . '<td class="small-text left">' . $row['fecha'] . '<td>';
+            }
+            echo '</tr>';
+        }
+        echo '</tbody>';
+    }
+
+
+?>
 <!DOCTYPE html>
 <!-- saved from url=(0043)http://getbootstrap.com/examples/jumbotron/ -->
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -281,13 +327,19 @@
                 </div><!-- Grupo de botones fin -->    
             </form>
         </div>
-      
-      
+    <?php 
+    
+    $sql = "SELECT * FROM vistadetallecartera WHERE id =".$_GET['id'];
+    $query = mysql_query($sql);
+    $row = mysql_fetch_array($query);
+ 
+    
+    ?>        
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1 class="center ">Caja Fuerte</h1>
-        <h2 class="center">$8035.00</h2>
+        <h1 class="center "><?php echo $row['nombre']; ?></h1>
+        <h2 class="center"><?php echo '$'.$row['total']; ?></h2>
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-4 center">
@@ -318,7 +370,7 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody>
+          <!--  <tbody>
               <tr>
                 <td class="center success"><span class="glyphicon glyphicon-plus"></span></td>
                 <td class="right">$2000.00</td>
@@ -367,7 +419,8 @@
                 <td><small>Rosa</small></td>
                 <td class="small-text left">01/Ago/2014</td>
               </tr>
-            </tbody>
+            </tbody>-->
+            <?php cargarTablaMovimiento(); ?>
           </table>
         </div>
       </div>
@@ -381,52 +434,36 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <h4 class="modal-title" id="myModalLabel">Nuevo Egreso</h4>
             </div>
-             <form role="form" method="post" action="php/agregarEgreso.php">
+              <form role="form" method="post" action="php/agregarEgreso.php?idCartera=<?php echo $_GET['id']; ?>">
             <div class="modal-body">
               
               <div class="form-group">
                 <label for="categoriaInput">Nombre Egreso</label>
-                <input type="text" class="form-control" name="nombreEgreso" id="categoriaInput" placeholder="Ingrese el nombre del egreso">
+                <input type="text" class="form-control" name="nombreEgreso" id="nombreInput" placeholder="Ingrese el nombre del egreso">
               </div>
               <div class="form-group">
                 <label for="cantidadInput">Cantidad</label>
-                <input type="text" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+                <input type="number" class="form-control" step="0.01" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
 
               </div>
               <div class="form-group">
                 <label for="categoriaInput">Seleccione el tipo de categoria</label>
-                <select id="categoriaEgreso" class="form-control">
-                   <option value="" disabled selected>Seleccione una categoria</option>
-                  <option value="bares">Bares</option>
-                  <option value="comida">Comida</option>
-                  <option value="escuela">Escuela</option>
-                  <option value="novia">Novia</option>
-                  <option value="restaurantes">Restaurantes</option>
-                  <option value="tecnologia">Tecnología</option>
-                  <option value="vicios">Vicios</option>                
-                </select>
-               <!-- <?php
-                  $sql = "select * from tblcategoria where activo = 1 and idUsuario = ".$_SESSION['idUsuario'];
-                  $query = mysql_query($conn, $sql);
-                  echo '<select name="categoria">'
-                  while ($row = mysql_fetch_array($query)) {
-                    echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
-                  }
-                  echo '</select>';
-                ?>-->
-                
+               <?php              
+                        cargarSelectCategorias('categoriasEgresos',2);
+                ?>
               </div>
               <div class="form-group">
                   <label for="categoriaInput">Seleccione un producto</label>
-                  <select id="productoEgreso" class="form-control">
-                    <option value="" disabled selected>Seleccione un producto</option>
-                   
-                  </select>
+                  <div id="contenedorProductos">
+                        <select id="productosInput" nombre="producto" class="form-control">
+                          <option value="" selected disabled>Seleccione un producto</option>
+                      </select> 
+                  </div>
                 </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary">Agregar Egreso</button>
+              <button type="submit" class="btn btn-primary">Agregar Egreso</button>
             </div>
              </form>
           </div>
@@ -442,36 +479,22 @@
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <h4 class="modal-title" id="myModalLabel">Nuevo Ingreso</h4>
             </div>
-            <form role="form" method="post" action="php/agregarIngreso.php">
+              <form role="form" method="post" action="php/agregarIngreso.php?idCartera=<?php echo $_GET['id']; ?>">
               <div class="modal-body">
                 
                 <div class="form-group">
                   <label for="categoriaInput">Nombre Ingreso</label>
-                  <input type="text" class="form-control" name="nombreIngreso" id="categoriaInput" placeholder="Ingrese el nombre del ingreso">
+                  <input type="text" class="form-control" name="nombreIngreso" id="nombreInput" placeholder="Ingrese el nombre del ingreso">
                 </div>
                 <div class="form-group">
                   <label for="cantidadInput">Cantidad</label>
-                  <input type="text" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
+                  <input type="number" step="0.01" class="form-control" name="cantidad" id="cantidadInput" placeholder="Ingrese la cantidad">
                 </div>
                 <div class="form-group">
                   <label for="categoriaInput">Seleccione el tipo de categoria</label>
-                  <select class="form-control">
-                    <option value="" disabled selected>Seleccione una categoria</option>
-                    <option>Abono</option>
-                    <option>Beca</option>
-                    <option>Cobro de prestamo</option>
-                    <option>Dinero Encontrado</option>
-                    <option>Quincena</option>
-                  </select>
-                  <!--<?php
-                    $sql = "select * from tblcategoria where activo = 1 and idUsuario = ".$_SESSION['idUsuario'];
-                    $query = mysql_query($conn, $sql);
-                    echo '<select name="categoria">'
-                    while ($row = mysql_fetch_array($query)) {
-                      echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
-                    }
-                    echo '</select>';
-                  ?>-->
+                  <?php
+                                  cargarSelectCategorias('categoriaIngresos',1);
+                  ?>
                   
                 </div>
                
@@ -481,7 +504,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Agregar Ingreso</button>
+                <button type="submit" class="btn btn-primary">Agregar Ingreso</button>
               </div>
              </form>
           </div>
@@ -506,58 +529,17 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript">
+      $('#categoriaInput').change(function(){
+        $.ajax({
+            url: "php/mostrarProductos.php",
+            type: "post",
+            data: {option: $(this).find("option:selected").val()},
+            success: function(data){
+                $("#contenedorProductos").html(data);
+            }
+        });
+    });
 
-      $("#categoriaEgreso").change(function(){
-        $("#productoEgreso").find('option').remove();
-        $("#productoEgreso").append('<option value="" disabled selected>Seleccione un producto</option>');
-        if ($(this).val() == "bares") {        
-            $("#productoEgreso").append('<option value="alitas">Alitas</option>');
-            $("#productoEgreso").append('<option value="boneless">Boneless</option>'); 
-            $("#productoEgreso").append('<option value="cerveza">Cerveza</option>');
-            $("#productoEgreso").append('<option value="hamburguesas">Hamburguesas</option>');            
-            $("#productoEgreso").append('<option value="Licor">Licor</option>');
-            $("#productoEgreso").append('<option value="papas">Papas</option>');
-            $("#productoEgreso").append('<option value="regrescos">Refrescos</option>');
-        }else  if ($(this).val() == "comida"){   
-            $("#productoEgreso").append('<option value="cokiebrake">Cokie-Brake</option>');
-            $("#productoEgreso").append('<option value="baguette">Baguette</option>'); 
-            $("#productoEgreso").append('<option value="pizza">Pizza</option>');
-            $("#productoEgreso").append('<option value="hamburguesas">Hamburguesas</option>');            
-            $("#productoEgreso").append('<option value="hotdog">Hot Dogs</option>');
-            $("#productoEgreso").append('<option value="tacos">Tacos</option>');
-            $("#productoEgreso").append('<option value="nachos">Nachos</option>');
-        }else  if ($(this).val() == "escuela"){   
-            $("#productoEgreso").append('<option value="copias">Copias</option>');
-            $("#productoEgreso").append('<option value="utiles">Utiles</option>'); 
-            $("#productoEgreso").append('<option value="libros">Libros</option>');
-            $("#productoEgreso").append('<option value="libretas">Libretas</option>');            
-            $("#productoEgreso").append('<option value="rifa">Boletos de la Rifa</option>');
-            $("#productoEgreso").append('<option value="semestre">Semestre</option>');
-            $("#productoEgreso").append('<option value="camiones">Camiones</option>');
-        }else  if ($(this).val() == "novia"){   
-            $("#productoEgreso").append('<option value="restaurantes">Restaurantes</option>');
-            $("#productoEgreso").append('<option value="regalos">Regalos</option>'); 
-            $("#productoEgreso").append('<option value="cine">Cine</option>');
-            $("#productoEgreso").append('<option value="nieves">Nieves</option>');            
-            $("#productoEgreso").append('<option value="raspados">Raspados</option>');
-        }else  if ($(this).val() == "restaurantes"){   
-            $("#productoEgreso").append('<option value="subway">Subway</option>');
-            $("#productoEgreso").append('<option value="leñador">Leñador</option>'); 
-            $("#productoEgreso").append('<option value="wendys">Wendys</option>');
-            $("#productoEgreso").append('<option value="innout">In n Out</option>');            
-            $("#productoEgreso").append('<option value="rocket">Johny Rocket</option>');
-        }else  if ($(this).val() == "tecnologia"){   
-            $("#productoEgreso").append('<option value="videojuegos">Videojuegos</option>');
-            $("#productoEgreso").append('<option value="computadora">Computadora</option>'); 
-            $("#productoEgreso").append('<option value="accesorios">Accesorios</option>');
-        }else  if ($(this).val() == "vicios"){   
-            $("#productoEgreso").append('<option value="refrescos">Refrescos</option>');
-            $("#productoEgreso").append('<option value="cerveza">Cerveza</option>'); 
-            $("#productoEgreso").append('<option value="licor">Licor</option>');
-            $("#productoEgreso").append('<option value="cafe">Cafe</option>');            
-            $("#productoEgreso").append('<option value="cigarros">Cigarros</option>');
-        };
-      });
     </script>
 </body></html>
 
