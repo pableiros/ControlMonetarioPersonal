@@ -404,6 +404,7 @@
                     <div class="form-group">
                         <table>
                             <tr>
+                                <td style="display: none;">'.$row['Id'].'</td>
                                 <td rowspan="2" width="66%"><a href="cartera.php?id='.$row['Id'].'"><img src="images/cartera.png" width="300" height="220"  /></a></td>
                                 <td><button type="button" class="btn btn-danger botonesRedondos eliminarCartera"> <span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
