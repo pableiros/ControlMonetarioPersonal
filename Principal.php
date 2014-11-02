@@ -406,7 +406,9 @@
                             <tr>
                                 <td style="display: none;">'.$row['Id'].'</td>
                                 <td rowspan="2" width="66%"><a href="cartera.php?id='.$row['Id'].'"><img src="images/cartera.png" width="300" height="220"  /></a></td>
-                                <td><button type="button" class="btn btn-danger botonesRedondos eliminarCartera"> <span class="glyphicon glyphicon-remove"></span></button></td>
+                                <td><button type="button" class="btn btn-danger botonesRedondos eliminarCartera"> 
+                                <span style="display: none;">'.$row['Id'].'</span>
+                                <span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: bottom;"><button type="Button" class="btnEditarCartera btn btn-default botonesRedondos"  ><span class="glyphicon glyphicon-pencil"></span></button></td>
@@ -488,6 +490,21 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
      <script type="text/javascript" language="javascript" src="js/alertify.js"></script>                    <!-- alertify js -->
+     <?php 
+        if (isset($_SESSION['carteraeliminada'])) {
+            if ($_SESSION['carteraeliminada'] == "si") {
+                
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function(){
+             alertify.alert("La cartera se ha eliminado correctamente.");
+        });
+    </script>
+    <?php
+
+            }
+        }
+      ?>
         <script type="text/javascript">    
             $('.btnEditarCartera').popover({ 
                     placement : 'top',
@@ -546,8 +563,15 @@
                 //document.getElementById("categoriaseditform").action = "php/editarCategoria.php?id="+id;
                 
             }
-            $(".eliminarCartera").click(function(){              
+            $(".eliminarCartera").click(function(){   
+                var button = $(this)    
+          
                 alertify.confirm("¿Está seguro(a) de eliminar la cartera?", function (e, str) {
+                    if (e) {
+                         window.location.href = "php/eliminarCartera.php?idcartera=" + $("span:nth-child(1)", button).text();
+                        
+                        
+                    };
                 });
             });
     </script>

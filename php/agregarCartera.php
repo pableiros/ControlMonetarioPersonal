@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 
-	if (isset($_SESSION['idusuario']) && isset($_POST['nombrecartera'])) {
+	if (isset($_POST['nombrecartera'])) {
 
 		require_once('conection.php');
 		
@@ -16,12 +16,12 @@
 			";
 	}else{
 	
-		echo "
-				<html>
-					<head>
-						<meta http-equiv='REFRESH' content='0;url=../index.php'>
-					</head>
-				</html>
-			";
+		// echo "
+		// 		<html>
+		// 			<head>
+		// 				<meta http-equiv='REFRESH' content='0;url=../index.php'>
+		// 			</head>
+		// 		</html>
+		// 	";
 	}
  ?>
