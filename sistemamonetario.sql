@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2014 a las 04:42:29
+-- Tiempo de generación: 03-11-2014 a las 22:44:26
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
@@ -31,15 +31,19 @@ CREATE TABLE IF NOT EXISTS `tblcartera` (
   `nombre` varchar(255) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   `idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Volcado de datos para la tabla `tblcartera`
 --
 
 INSERT INTO `tblcartera` (`id`, `nombre`, `activo`, `idUsuario`) VALUES
-(4, 'Ahorro', 1, 4),
-(5, 'Cochinito', 1, 4);
+(21, 'Ahorro', 1, 4),
+(22, 'Ahorro 2', 0, 4),
+(23, 'Ahorro 3', 0, 4),
+(24, 'Prueba 2', 1, 4),
+(25, 'Cochinito 2', 0, 4),
+(26, 'sadsad', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -53,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `tblcategoria` (
   `activo` int(11) NOT NULL DEFAULT '1',
   `idTipo` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Volcado de datos para la tabla `tblcategoria`
@@ -61,7 +65,10 @@ CREATE TABLE IF NOT EXISTS `tblcategoria` (
 
 INSERT INTO `tblcategoria` (`id`, `nombre`, `activo`, `idTipo`, `idUsuario`) VALUES
 (3, 'Vicios', 1, 2, 4),
-(4, 'Trabajo', 1, 1, 4);
+(4, 'Trabajo', 1, 1, 4),
+(5, 'Cobro de prestamo', 1, 1, 4),
+(6, 'Dinero encontrado', 1, 1, 4),
+(8, 'Pago de impuestos', 1, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -79,17 +86,16 @@ CREATE TABLE IF NOT EXISTS `tblmovimiento` (
   `idCategoria` int(11) DEFAULT NULL,
   `idProducto` int(11) DEFAULT NULL,
   `idCartera` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Volcado de datos para la tabla `tblmovimiento`
 --
 
 INSERT INTO `tblmovimiento` (`id`, `comentario`, `cantidad`, `fecha`, `unix`, `activo`, `idCategoria`, `idProducto`, `idCartera`) VALUES
-(1, 'Por fin me pagaron!', 2000.00, '2014-10-28', 1, 1, 4, 3, 4),
-(6, 'Cocaa!', 1500.00, '2014-10-28', 2, 1, 3, 2, 4),
-(7, 'Novia consentida', 500.00, '2014-10-28', 1414547628, 1, 3, 2, 4),
-(8, 'Bono', 500.00, '2014-10-28', 1414548333, 1, 4, 3, 4);
+(21, 'Me pagaron!', 10000.00, '2014-11-03', 1415026041, 1, 4, 3, 25),
+(22, 'Coca', 10.00, '2014-11-03', 1415026059, 1, 3, 2, 25),
+(23, 'Cobre deuda', 1000.00, '2014-11-03', 1415026559, 1, 5, 3, 24);
 
 -- --------------------------------------------------------
 
@@ -187,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `vistamovimientos` (
 --
 DROP TABLE IF EXISTS `vistadetallecartera`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistadetallecartera` AS select `tblcartera`.`id` AS `id`,`tblcartera`.`nombre` AS `nombre`,ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` = 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) AS `totalIngresos`,ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` <> 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) AS `totalEgresos`,(ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` = 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) - ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` <> 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0)) AS `total`,`tblcartera`.`idUsuario` AS `idUsuario`,`tblcartera`.`activo` AS `activo` from (`tblcartera` left join `tblmovimiento` on((`tblmovimiento`.`idCartera` = `tblcartera`.`id`))) group by `tblmovimiento`.`idCartera`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vistadetallecartera` AS select distinct `tblcartera`.`id` AS `id`,`tblcartera`.`nombre` AS `nombre`,ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` = 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) AS `totalIngresos`,ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` <> 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) AS `totalEgresos`,(ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` = 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0) - ifnull((select sum(`vistamovimientos`.`cantidad`) from `vistamovimientos` where ((`vistamovimientos`.`nomProducto` <> 'N/A') and (`vistamovimientos`.`idCartera` = `tblcartera`.`id`))),0)) AS `total`,`tblcartera`.`idUsuario` AS `idUsuario`,`tblcartera`.`activo` AS `activo` from (`tblcartera` left join `tblmovimiento` on((`tblmovimiento`.`idCartera` = `tblcartera`.`id`)));
 
 -- --------------------------------------------------------
 
@@ -246,17 +252,17 @@ ALTER TABLE `tblusuario`
 -- AUTO_INCREMENT de la tabla `tblcartera`
 --
 ALTER TABLE `tblcartera`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `tblcategoria`
 --
 ALTER TABLE `tblcategoria`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `tblmovimiento`
 --
 ALTER TABLE `tblmovimiento`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `tblproducto`
 --
