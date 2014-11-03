@@ -7,6 +7,7 @@
 		
 		$sql = "insert into tblcartera(nombre, idUsuario) values('".$_POST['nombrecartera']."', ".$_SESSION['idusuario'].");";
 		$query = mysql_query($sql);
+            //    echo $sql;
 		echo "
 				<html>
 					<head>
