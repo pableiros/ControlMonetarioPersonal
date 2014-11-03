@@ -496,9 +496,9 @@
                 
     ?>
     <script type="text/javascript">
-        $(document).ready(function(){
+       /* $(document).ready(function(){
              alertify.alert("La cartera se ha eliminado correctamente.");
-        });
+        }); */
     </script>
     <?php
 
