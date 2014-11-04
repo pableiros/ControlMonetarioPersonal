@@ -178,7 +178,7 @@
                                                     $result = mysql_query($query);
                                                     while ($row = mysql_fetch_array($result)) {
                                                         echo "<tr>";
-                                                        echo "<td width='60' class='text-center'><a href='#' onclick='changeCategoriaId(".$row['id'].")' class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+                                                        echo "<td width='60' class='text-center'><a href='#' onclick='changeCategoriaId(".$row['id'].")' value=".$row['id']." class='btn btn-default myButtons BotonEditarCategoria'><span class='glyphicon glyphicon-pencil'></span></a></td>";
                                                         echo "<td>".$row['nombre']."</td>";
                                                         echo "
                                                     <td width='60' class='text-center'><a href='#' class='btn btn-default myButtons BotonProductosModal'><span class='glyphicon glyphicon-plus'></span></a></td>
@@ -239,10 +239,11 @@
     
     
     <div id="popover-content" class="hide">
-        <form class="modal-form form-horizontal" role="form" action="" method="POST" id="categoriaseditform">
+        <form class="modal-form form-horizontal" role="form" action="php/editarCategoria.php?pagina=0" method="POST" id="categoriaseditform">
             <div class="form-group">
                 <div class="col-lg-12">
                     <label class="control-label">Nombre Categoría:</label>
+                    <input type="hidden" id="idcategoriaedit" name="idcategoriaeditar" value="0"/>
                     <input type="text" id="nombrecategoriaedit" name="nombrecategoriaedit" class="form-control" required="required" >
                 </div>               
             </div>
@@ -256,21 +257,23 @@
 
     <div id="popover-contentCartera" class="hide">
         <div class="popover-content" style="width:400px">
-         <form class="modal-form form-horizontal"  role="form" action="" method="POST" id="categoriaseditform" onReset="javascript:location.reload()">
+         <form class="modal-form form-horizontal"  role="form" action="php/editarCartera.php?pagina=0" method="POST" id="categoriaseditform">
             <div class="form-group">
                 <div class="col-lg-12">
                     <label class="control-label">Nombre nuevo de la cartera:</label>
+                    <input type="hidden" id="idcarteraedit" name="idcarteraeditar" value="0"/>
                     <input type="text" id="nombrecarteraedit" name="nombrecarteraedit" class="form-control" required="required" >
                 </div>               
             </div>
             <div class="form-group"><!-- Grupo de botones -->
                 <div class="col-sm-12">
-                    <button type="submit" id="btntovalidate" class="btn btn-lg btn-primary btn-block" onclick="javascript." ><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+                    <button type="submit" id="btntovalidate" class="btn btn-lg btn-primary btn-block" ><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
                 </div>
             </div><!-- Grupo de botones fin -->    
         </form>
         </div>
-    </div>   
+    </div> 
+    
     <div id="popover-AgregarCartera" class="hide">
         <div class="popover-content" style="width:400px">
          <form class="modal-form form-horizontal"  role="form" action="php/agregarCartera.php" method="POST" id="categoriaseditform" >
@@ -411,7 +414,7 @@
                                 <span class="glyphicon glyphicon-remove"></span></button></td>
                             </tr>
                             <tr>
-                                <td style="vertical-align: bottom;"><button type="Button" class="btnEditarCartera btn btn-default botonesRedondos"  ><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                <td style="vertical-align: bottom;"><button type="Button" value='.$row['Id'].' class="btnEditarCartera btn btn-default botonesRedondos"  ><span class="glyphicon glyphicon-pencil"></span></button></td>
                             </tr>
                         </table>
                     </div>
@@ -510,14 +513,19 @@
                     placement : 'top',
                     html : true,
                     content: function() {
+                      var id = $(this).attr("value");   
+                      $('#idcarteraedit', window.parent.document).val(id); 
                       return $("#popover-contentCartera").html();
                     }
                 });
+                
               
             $('.BotonEditarCategoria').popover({ 
                     placement : 'top',
                     html : true,
                     content: function() {
+                      var id = $(this).attr("value");   
+                      $('#idcategoriaedit', window.parent.document).val(id); 
                       return $("#popover-content").html();
                     }
                 });
@@ -568,12 +576,10 @@
           
                 alertify.confirm("¿Está seguro(a) de eliminar la cartera?", function (e, str) {
                     if (e) {
-                         window.location.href = "php/eliminarCartera.php?idcartera=" + $("span:nth-child(1)", button).text();
-                        
-                        
+                         window.location.href = "php/eliminarCartera.php?idcartera=" + $("span:nth-child(1)", button).text();                             
                     };
                 });
-            });
+            });           
     </script>
   
 </body>

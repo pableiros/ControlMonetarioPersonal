@@ -8,9 +8,9 @@
 		$query = mysql_query($sql);
 		echo $sql;
 		if ($query) {
-    			header('location: http://localhost/ControlMonetarioPersonal/Principal.php'); 
+    			header('location: ../Principal.php'); 
 			}	
 	}else{		
-    	header('location: logout.php'); 
+    	header('location: ../logout.php'); 
 	}
  ?>
